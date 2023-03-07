@@ -1,2 +1,2 @@
-VALUE:
-  HELLO: Hello World!
+MONGO:
+  URI: mongodb://localhost:27017
