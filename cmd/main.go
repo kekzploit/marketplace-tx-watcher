@@ -18,15 +18,18 @@ func main() {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
-	//hello := viper.Get("VALUE.HELLO").(string)
-
 	txExists, image, title, description, secret, storeType, hash := tx.TxWatch()
+	//txExists, _, _, _, _, _, hash := tx.TxWatch()
 
 	if txExists {
-		db.CheckDB()
-		store := fmt.Sprintf("\nImage: %s\nTitle: %s\nDescription: %s\nSecret: %s\nType: %s\nHash: %s\n", image, title, description, secret, storeType, hash)
-		fmt.Println(store)
-	} else {
-		fmt.Println("no new store registrations")
+		vendorExists := db.CheckDB(viper.Get("MONGO.URI").(string), hash)
+		if !vendorExists {
+			vendorAdded := db.AddVendor(viper.Get("MONGO.URI").(string), image, title, description, secret, storeType, hash)
+			if !vendorAdded {
+				fmt.Println("error adding vendor")
+			} else {
+				fmt.Println("added new vendor")
+			}
+		}
 	}
 }
