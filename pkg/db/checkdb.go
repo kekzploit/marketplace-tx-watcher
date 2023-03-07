@@ -53,7 +53,7 @@ func CheckDB(uri string, hash string, search string) bool {
 	var vendor Vendors
 	err = collection.FindOne(context.TODO(), filter).Decode(&vendor)
 	if err == mongo.ErrNoDocuments {
-		// Do something when no record was found
+		// Do something when no record found
 		return false
 	} else if err != nil {
 		log.Fatal(err)
