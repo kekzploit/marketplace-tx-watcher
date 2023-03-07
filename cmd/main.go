@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/kekzploit/marketplace-tx-watcher/pkg/tx"
 
 	"github.com/spf13/viper"
 )
@@ -16,7 +17,7 @@ func main() {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
-	hello := viper.Get("VALUE.HELLO").(string)
+	//hello := viper.Get("VALUE.HELLO").(string)
 
-	fmt.Println(hello)
+	tx.TxWatch()
 }
