@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/kekzploit/marketplace-tx-watcher/pkg/db"
 	"github.com/kekzploit/marketplace-tx-watcher/pkg/tx"
 
 	"github.com/spf13/viper"
@@ -19,5 +20,13 @@ func main() {
 
 	//hello := viper.Get("VALUE.HELLO").(string)
 
-	tx.TxWatch()
+	txExists, image, title, description, secret, storeType, hash := tx.TxWatch()
+
+	if txExists {
+		db.CheckDB()
+		store := fmt.Sprintf("\nImage: %s\nTitle: %s\nDescription: %s\nSecret: %s\nType: %s\nHash: %s\n", image, title, description, secret, storeType, hash)
+		fmt.Println(store)
+	} else {
+		fmt.Println("no new store registrations")
+	}
 }
