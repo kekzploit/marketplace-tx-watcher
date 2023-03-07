@@ -29,6 +29,12 @@ func AddVendor(uri string, image string, title string, description string, secre
 		{Key: "image", Value: image},
 		{Key: "title", Value: title},
 		{Key: "description", Value: description},
+		{Key: "socials", Value: bson.D{
+			{Key: "twitter", Value: ""},
+			{Key: "discord", Value: ""},
+			{Key: "telegram", Value: ""},
+			{Key: "discord", Value: ""},
+		}},
 		{Key: "secret", Value: secret},
 		{Key: "type", Value: storeType},
 		{Key: "hash", Value: hash}})
