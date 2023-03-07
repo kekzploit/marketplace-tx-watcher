@@ -33,7 +33,7 @@ func AddVendor(uri string, image string, title string, description string, secre
 			{Key: "twitter", Value: ""},
 			{Key: "discord", Value: ""},
 			{Key: "telegram", Value: ""},
-			{Key: "discord", Value: ""},
+			{Key: "github", Value: ""},
 		}},
 		{Key: "secret", Value: secret},
 		{Key: "type", Value: storeType},
