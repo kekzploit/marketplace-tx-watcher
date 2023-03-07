@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func AddVendor(uri string, image string, title string, description string, secret string, storeType string, hash string) bool {
+func AddVendor(uri string, image string, title string, description string, secret string, storeType string, url string, hash string) bool {
 	// instantiate mongodb client
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -37,6 +37,7 @@ func AddVendor(uri string, image string, title string, description string, secre
 		}},
 		{Key: "secret", Value: secret},
 		{Key: "type", Value: storeType},
+		{Key: "url", Value: url},
 		{Key: "hash", Value: hash}})
 
 	id := res.InsertedID

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/kekzploit/marketplace-tx-watcher/pkg/db"
 	"github.com/kekzploit/marketplace-tx-watcher/pkg/tx"
+	url2 "github.com/kekzploit/marketplace-tx-watcher/pkg/url"
 
 	"github.com/spf13/viper"
 )
@@ -22,9 +23,12 @@ func main() {
 	//txExists, _, _, _, _, _, hash := tx.TxWatch()
 
 	if txExists {
-		vendorExists := db.CheckDB(viper.Get("MONGO.URI").(string), hash)
+		vendorExists := db.CheckDB(viper.Get("MONGO.URI").(string), hash, "hash")
 		if !vendorExists {
-			vendorAdded := db.AddVendor(viper.Get("MONGO.URI").(string), image, title, description, secret, storeType, hash)
+			url := url2.GenUrl(title)
+			urlExists := db.CheckDB(viper.Get("MONGO.URI").(string), url, "url")
+			fmt.Println(urlExists) // TODO: if url exists = true, generate new one
+			vendorAdded := db.AddVendor(viper.Get("MONGO.URI").(string), image, title, description, secret, storeType, url, hash)
 			if !vendorAdded {
 				fmt.Println("error adding vendor")
 			} else {

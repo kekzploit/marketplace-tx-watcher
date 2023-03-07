@@ -26,7 +26,7 @@ type Vendors struct {
 	Secret      string  `json:"secret"`
 }
 
-func CheckDB(uri string, hash string) bool {
+func CheckDB(uri string, hash string, search string) bool {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -37,8 +37,18 @@ func CheckDB(uri string, hash string) bool {
 			panic(err)
 		}
 	}()
+
+	var filter bson.D
+
 	collection := client.Database("marketplace").Collection("vendors")
-	filter := bson.D{{Key: "hash", Value: hash}}
+
+	if search == "hash" {
+		filter = bson.D{{Key: "hash", Value: hash}}
+	}
+
+	if search == "url" {
+		filter = bson.D{{Key: "url", Value: hash}}
+	}
 
 	var vendor Vendors
 	err = collection.FindOne(context.TODO(), filter).Decode(&vendor)

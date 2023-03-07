@@ -100,9 +100,9 @@ func CheckTxs() (bool, string, string, string, string, string, string) {
 	_ = json.Unmarshal([]byte(body), &data)
 
 	//store price
-	featuredPrice := 10000000000000
-	enhancedPrice := 5000000000000
-	basicPrice := 2000000000000
+	featuredPrice := 10000000000000 * 100 // 500 $ZANO
+	enhancedPrice := 5000000000000 * 300  // 300 $ZANO
+	basicPrice := 2000000000000 * 500     // 100 $ZANO
 
 	var storeType string
 
